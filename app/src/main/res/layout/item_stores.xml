@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/store_item_margin_large">
+
+    <ImageView
+        android:id="@+id/store_image"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_height"
+        android:scaleType="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/store_image" />
+
+    <TextView
+        android:id="@+id/store_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/store_item_margin_large"
+        android:layout_marginEnd="@dimen/store_item_margin_large"
+        android:paddingTop="@dimen/store_item_margin"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/store_status"
+        app:layout_constraintStart_toEndOf="@id/store_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Hyderabad Biryani House" />
+
+    <TextView
+        android:id="@+id/store_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/store_item_margin_large"
+        android:layout_marginEnd="@dimen/store_item_margin_large"
+        android:maxLines="1"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/store_status"
+        app:layout_constraintStart_toEndOf="@id/store_image"
+        app:layout_constraintTop_toBottomOf="@id/store_name"
+        tools:text="Indian, Biryani" />
+
+    <TextView
+        android:id="@+id/store_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/store_item_margin"
+        app:layout_constraintBottom_toBottomOf="@id/store_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="15 Mins" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
