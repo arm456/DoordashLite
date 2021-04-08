@@ -10,9 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-object NetworkModule {
-
-    private const val BASE_URL = "https://api.doordash.com/"
+class NetworkModule {
 
     @Provides
     fun getDoorDashRepository(service: DoorDashAPI): DoorDashStoreRepository =
@@ -24,7 +22,6 @@ object NetworkModule {
      * @return the DoorDashAPI service implementation.
      */
     @Provides
-    @JvmStatic
     internal fun getDoorDashAPI(retrofit: Retrofit): DoorDashAPI {
         return retrofit.create(DoorDashAPI::class.java)
     }
@@ -34,7 +31,6 @@ object NetworkModule {
      * @return the Retrofit object
      */
     @Provides
-    @JvmStatic
     internal fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -51,5 +47,9 @@ object NetworkModule {
     internal fun getOkHttClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .build()
+    }
+
+    companion object {
+        private const val BASE_URL = "https://api.doordash.com/"
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="store_item_margin">8dp</dimen>
+    <dimen name="store_item_margin_large">16dp</dimen>
+    <dimen name="image_width">110dp</dimen>
+    <dimen name="image_height">70dp</dimen>
+</resources>

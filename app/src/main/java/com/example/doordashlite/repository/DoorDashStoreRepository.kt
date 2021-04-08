@@ -7,6 +7,7 @@ import com.example.doordashlite.network.domain.StoreFeedResponseResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import javax.inject.Inject
 
 interface DoorDashStoreRepository {
     suspend fun getDoorDashStoreFeed(
@@ -21,7 +22,7 @@ interface DoorDashStoreRepository {
     ): RestaurantDetailsResponseResult
 }
 
-class DoorDashStoreRepositoryImpl(private val doorDashAPI: DoorDashAPI) : DoorDashStoreRepository {
+class DoorDashStoreRepositoryImpl @Inject constructor(private val doorDashAPI: DoorDashAPI) : DoorDashStoreRepository {
 
     override suspend fun getDoorDashStoreFeed(
         latitude: Float,
@@ -30,7 +31,6 @@ class DoorDashStoreRepositoryImpl(private val doorDashAPI: DoorDashAPI) : DoorDa
         limit: Int
     ): StoreFeedResponseResult {
         return try {
-//            StoreFeedResponseResult.Loading
             withContext(Dispatchers.IO) {
                 val storeFeedResponse =
                     doorDashAPI.getDoorDashStoreFeed(latitude, longitude, offset, limit).execute()

@@ -21,9 +21,9 @@ data class Store(
 )
 
 data class Status(
-    @SerializedName( "unavailable_reason") val unavailableReason:String,
-    @SerializedName( "pickup_available") val pickupAvailable:String,
-    @SerializedName( "asap_available") val asapAvailable:String,
-    @SerializedName( "scheduled_available") val scheduledAvailable:String,
-    @SerializedName("asap_minutes_range") val asapRange: IntArray?
+    @SerializedName("unavailable_reason") val unavailableReason: String,
+    @SerializedName("pickup_available") val pickupAvailable: Boolean?,
+    @SerializedName("asap_available") val asapAvailable: Boolean?,
+    @SerializedName("scheduled_available") val scheduledAvailable: Boolean?,
+    @SerializedName("asap_minutes_range") val asapMinutesRange: IntArray?
 )

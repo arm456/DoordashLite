@@ -10,8 +10,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            val storeFeedFragment = StoresFeedFragment(R.layout.stores_feed)
-            supportFragmentManager.beginTransaction().replace(R.id.container, storeFeedFragment).commitNow()
+            val storesFeedFragment = StoresFeedFragment(R.layout.fragment_stores_feed)
+            supportFragmentManager.beginTransaction().replace(R.id.container, storesFeedFragment).commit()
         }
     }
 }
