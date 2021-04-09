@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.doordashlite.R
 import com.example.doordashlite.network.domain.Store
+import com.example.doordashlite.viewmodel.StoresFeedViewModel
 
 
 class StoresFeedAdapter(
+    private val storeFeedViewModel: StoresFeedViewModel,
     private var storesList: List<Store> = emptyList()
 ) : RecyclerView.Adapter<StoresFeedAdapter.StoresViewHolder>() {
 
@@ -28,14 +31,28 @@ class StoresFeedAdapter(
 
     override fun onBindViewHolder(holder: StoresViewHolder, position: Int) {
         val store = storesList[position]
+        store.coverImageUrl?.let {
+            holder.storeImage?.let { image ->
+                Glide.with(holder.itemView.context).load(store.coverImageUrl).into(
+                    image
+                )
+            }
+        }
         holder.storeName?.text = store.name
         holder.storeDescription?.text = store.description
         if (store.status?.asapAvailable == true)
             holder.storeStatus?.text =
-                "${store.status.asapMinutesRange?.get(0)} ${holder.itemView.context.resources.getString(R.string.minutes)}"
+                "${store.status.asapMinutesRange?.get(0)} ${holder.itemView.context.resources.getString(
+                    R.string.minutes
+                )}"
         else
             holder.storeStatus?.text = "${store.status?.unavailableReason}"
+
+//        TODO:
+        holder.itemView.setOnClickListener {
+        }
     }
+
 
     class StoresViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val storeImage: ImageView? = view.findViewById(R.id.store_image)

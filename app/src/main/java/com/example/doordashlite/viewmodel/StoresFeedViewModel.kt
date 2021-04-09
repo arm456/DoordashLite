@@ -15,28 +15,33 @@ class StoresFeedViewModel(private val repository: DoorDashStoreRepository) : Vie
     fun getStoreFeedResponse(offset: Int, limit: Int) {
         viewModelScope.launch {
             repository.getDoorDashStoreFeed(37.422740f, -122.139956f, offset, limit)
-                .let { responseResult ->
-                    when (responseResult) {
+                .let { storesResult ->
+                    when (storesResult) {
                         is StoreFeedResponseResult.Success -> {
-                            Log.d(StoresFeedViewModel::class.java.canonicalName, "Data fetched from backend")
+                            Log.d(
+                                StoresFeedViewModel::class.java.canonicalName,
+                                "Store Data fetched from backend"
+                            )
                             _storesLiveData.postValue(
                                 _storesLiveData.value.apply {
-                                    responseResult.storeFeed?.stores?.let {
+                                    storesResult.storeFeed?.stores?.let {
                                         this?.addAll(
                                             it
                                         )
                                     }
-                                } ?: run { responseResult.storeFeed?.stores?.toMutableList() }
+                                } ?: run { storesResult.storeFeed?.stores?.toMutableList() }
                             )
                         }
                         else -> {
-                            Log.d(StoresFeedViewModel::class.java.canonicalName, "Data could not be fetched from backend")
+                            Log.d(
+                                StoresFeedViewModel::class.java.canonicalName,
+                                "Data could not be fetched from backend"
+                            )
                         }
                     }
 
                 }
         }
-
     }
 
     class Factory(private val repository: DoorDashStoreRepository) : ViewModelProvider.Factory {

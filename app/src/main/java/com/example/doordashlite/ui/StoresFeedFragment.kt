@@ -24,7 +24,6 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         ((activity?.application) as DoorDashApplication).appComponent.inject(this)
         storesFeedViewModel =
             ViewModelProvider(this, StoresFeedViewModel.Factory(repository = storeRepository)).get(
@@ -40,7 +39,7 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
             DividerItemDecoration(storesRecyclerView.context, layoutManager.orientation)
         storesRecyclerView.addItemDecoration(dividerItemDecoration)
 
-        storesAdapter = StoresFeedAdapter()
+        storesAdapter = StoresFeedAdapter(storesFeedViewModel)
         storesRecyclerView.adapter = storesAdapter
 
         storesFeedViewModel.storesLiveData.observe(
