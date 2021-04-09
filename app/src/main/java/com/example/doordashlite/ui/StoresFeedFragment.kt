@@ -48,5 +48,21 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
                 storesAdapter.setData(it)
             }
         )
+
+        storesFeedViewModel.storeItemClickLiveData.observe(
+            viewLifecycleOwner,
+            Observer { onClickEvent ->
+                onClickEvent.getDataIfReceived()?.let {
+                    activity?.supportFragmentManager?.beginTransaction()?.add(
+                        R.id.container,
+                        RestaurantDetailsFragment.newInstance(
+                            it,
+                            R.layout.fragment_restaurant_details
+                        )
+                    )?.addToBackStack(RestaurantDetailsFragment::class.java.canonicalName)?.commit()
+                }
+
+            }
+        )
     }
 }

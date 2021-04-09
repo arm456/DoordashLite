@@ -48,11 +48,10 @@ class StoresFeedAdapter(
         else
             holder.storeStatus?.text = "${store.status?.unavailableReason}"
 
-//        TODO:
         holder.itemView.setOnClickListener {
+            store.id?.let { it -> storeFeedViewModel.onStoreItemClicked(it) }
         }
     }
-
 
     class StoresViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val storeImage: ImageView? = view.findViewById(R.id.store_image)

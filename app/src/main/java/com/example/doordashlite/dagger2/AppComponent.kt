@@ -1,6 +1,7 @@
 package com.example.doordashlite.dagger2
 
 import android.content.Context
+import com.example.doordashlite.ui.RestaurantDetailsFragment
 import com.example.doordashlite.ui.StoresFeedFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -21,4 +22,5 @@ interface AppComponent {
 
     fun inject(storesFeedFragment: StoresFeedFragment)
 
+    fun inject(storeDetailFragment: RestaurantDetailsFragment)
 }
