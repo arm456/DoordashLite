@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/store_image"
-        android:layout_width="@dimen/image_width"
+        android:layout_width="@dimen/store_feed_image_width"
         android:layout_height="@dimen/image_height"
         android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"

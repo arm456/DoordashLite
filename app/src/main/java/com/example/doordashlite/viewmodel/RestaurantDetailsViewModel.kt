@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 
 class RestaurantDetailsViewModel (private val repository: DoorDashStoreRepository) : ViewModel() {
 
-    private val _restaurantDetailsLiveData = MutableLiveData<MutableList<RestaurantDetailsResponse>>()
-    val restaurantDetailsLiveData: LiveData<MutableList<RestaurantDetailsResponse>> = _restaurantDetailsLiveData
+    private val _restaurantDetailsLiveData = MutableLiveData<RestaurantDetailsResponse>()
+    val restaurantDetailsLiveData: LiveData<RestaurantDetailsResponse> = _restaurantDetailsLiveData
 
     fun getRestaurantDetails(id: Int?) {
         viewModelScope.launch {
@@ -19,6 +19,7 @@ class RestaurantDetailsViewModel (private val repository: DoorDashStoreRepositor
                     when (restaurantDetailsResult) {
                         is RestaurantDetailsResponseResult.Success -> {
                             Log.d(RestaurantDetailsViewModel::class.java.canonicalName, "Detail Data fetched from backend")
+                            _restaurantDetailsLiveData.postValue(restaurantDetailsResult.store)
                         }
                         else -> {
                             Log.d(RestaurantDetailsViewModel::class.java.canonicalName, "Detail Data not fetched from backend")

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">DoorDash Lite</string>
     <string name="minutes">Mins</string>
-    <string name="store_image">store image</string>
+    <string name="store_image"> store image</string>
+    <string name="store_address">Address:</string>
 </resources>

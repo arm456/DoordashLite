@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -7,6 +9,71 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/restaurant_detail_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/store_detail_image_width"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="Restaurant Image" />
+
+        <TextView
+            android:id="@+id/restaurant_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/store_item_margin_large"
+            android:layout_marginLeft="@dimen/store_item_margin_large"
+            android:layout_marginTop="@dimen/store_item_margin_large"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/restaurant_rating"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_detail_image_view"
+            tools:text="Hyderabad Biryani House" />
+
+        <RatingBar
+            android:id="@+id/restaurant_rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/store_item_margin_large"
+            android:layout_marginEnd="@dimen/store_item_margin_large"
+            android:layout_weight="1"
+            android:isIndicator="true"
+            app:layout_constraintBottom_toBottomOf="@id/restaurant_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/restaurant_title" />
+
+        <TextView
+            android:id="@+id/restaurant_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/store_item_margin_large"
+            android:layout_marginLeft="@dimen/store_item_margin_large"
+            android:layout_marginTop="@dimen/store_item_margin"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_title"
+            tools:text="Authentic Hyderabadi biryani, indian food" />
+
+        <TextView
+            android:id="@+id/restaurant_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/store_item_margin_large"
+            android:layout_marginLeft="@dimen/store_item_margin_large"
+            android:layout_marginTop="@dimen/store_item_margin"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_desc"
+            tools:text="735 Villa Street, Mountain View, CA 94041, USA" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

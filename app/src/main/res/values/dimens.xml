@@ -2,6 +2,7 @@
 <resources>
     <dimen name="store_item_margin">8dp</dimen>
     <dimen name="store_item_margin_large">16dp</dimen>
-    <dimen name="image_width">110dp</dimen>
+    <dimen name="store_feed_image_width">110dp</dimen>
+    <dimen name="store_detail_image_width">200dp</dimen>
     <dimen name="image_height">70dp</dimen>
 </resources>

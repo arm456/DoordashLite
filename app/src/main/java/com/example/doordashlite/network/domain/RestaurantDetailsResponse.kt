@@ -9,7 +9,6 @@ data class RestaurantDetailsResponse(
     @Expose val description: String?,
     @SerializedName("cover_img_url") val coverImageUrl: String?,
     @SerializedName("average_rating") val averageRating: Float?,
-    @Expose val status: String?,
     @Expose val address: Address?
 )
 
