@@ -3,4 +3,5 @@
     <string name="minutes">Mins</string>
     <string name="store_image"> store image</string>
     <string name="store_address">Address:</string>
+    <string name="store_title">store title:</string>
 </resources>

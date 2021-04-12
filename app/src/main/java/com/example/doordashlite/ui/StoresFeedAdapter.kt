@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.doordashlite.R
@@ -51,6 +52,22 @@ class StoresFeedAdapter(
         holder.itemView.setOnClickListener {
             store.id?.let { it -> storeFeedViewModel.onStoreItemClicked(it) }
         }
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val totalItems: Int? = recyclerView.layoutManager?.itemCount
+                val scrolledItems: Int? =
+                    (recyclerView.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition()
+                if (totalItems == null || scrolledItems == null) return
+                if (scrolledItems <= totalItems) {
+                    storeFeedViewModel.getStoreFeedResponse(storesList.size, 10)
+                }
+            }
+        })
     }
 
     class StoresViewHolder(view: View) : RecyclerView.ViewHolder(view) {

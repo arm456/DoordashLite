@@ -61,7 +61,6 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
                         )
                     )?.addToBackStack(RestaurantDetailsFragment::class.java.canonicalName)?.commit()
                 }
-
             }
         )
     }

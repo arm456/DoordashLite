@@ -29,7 +29,6 @@ class RestaurantDetailsFragment(contentLayoutId: Int) : Fragment(contentLayoutId
             this, RestaurantDetailsViewModel.Factory(repository = storeRepository)
         ).get(RestaurantDetailsViewModel::class.java)
 
-        requireActivity().setTitle(R.string.store_title)
         val restaurantTitle = view.findViewById<TextView>(R.id.restaurant_title)
         val restaurantDescription = view.findViewById<TextView>(R.id.restaurant_desc)
         val restaurantImage = view.findViewById<ImageView>(R.id.restaurant_detail_image_view)
