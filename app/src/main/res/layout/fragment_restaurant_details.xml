@@ -14,10 +14,10 @@
             android:id="@+id/restaurant_detail_image_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/store_detail_image_width"
+            android:contentDescription="Restaurant Image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Restaurant Image" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/restaurant_title"
@@ -75,6 +75,13 @@
             app:layout_constraintTop_toBottomOf="@id/restaurant_desc"
             tools:text="735 Villa Street, Mountain View, CA 94041, USA" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/loading_view"
+            layout="@layout/view_loading_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+

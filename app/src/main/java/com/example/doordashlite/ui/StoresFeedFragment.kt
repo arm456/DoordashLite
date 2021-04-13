@@ -2,6 +2,7 @@ package com.example.doordashlite.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,9 +43,11 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
         storesAdapter = StoresFeedAdapter(storesFeedViewModel)
         storesRecyclerView.adapter = storesAdapter
 
+        val loading = view.findViewById<FrameLayout>(R.id.loading_view)
         storesFeedViewModel.storesLiveData.observe(
             viewLifecycleOwner,
             Observer {
+                loading.visibility = View.GONE
                 storesAdapter.setData(it)
             }
         )

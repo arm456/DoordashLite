@@ -6,7 +6,6 @@ package com.example.doordashlite.network.domain
 sealed class StoreFeedResponseResult {
     data class Success(val storeFeed: StoreFeedResponse?) : StoreFeedResponseResult()
     data class Failure(val exception: NetworkException) : StoreFeedResponseResult()
-    object Loading : StoreFeedResponseResult()
 }
 
 /**
@@ -15,7 +14,6 @@ sealed class StoreFeedResponseResult {
 sealed class RestaurantDetailsResponseResult {
     data class Success(val store: RestaurantDetailsResponse?) : RestaurantDetailsResponseResult()
     data class Failure(val exception: NetworkException) : RestaurantDetailsResponseResult()
-    object Loading : RestaurantDetailsResponseResult()
 }
 
 data class NetworkException(
