@@ -2,10 +2,7 @@ package com.example.doordashlite.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -47,9 +44,14 @@ class RestaurantDetailsFragment(contentLayoutId: Int) : Fragment(contentLayoutId
             store.averageRating?.let {
                 restaurantRatingBar.rating = it
             }
-            restaurantAddress.text = "${context?.resources?.getString(R.string.store_address)} ${store.address?.printableAddress}"
+            restaurantAddress.text =
+                "${context?.resources?.getString(R.string.store_address)} ${store.address?.printableAddress}"
         })
 
+        detailsViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
+            loading.visibility = View.GONE
+            Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()
+        })
         arguments?.getInt(RESTAURANT_ID)?.let { detailsViewModel.getRestaurantDetails(it) }
     }
 

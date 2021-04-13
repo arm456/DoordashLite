@@ -1,7 +1,7 @@
 package com.example.doordashlite.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
+import com.example.doordashlite.network.domain.NetworkException
 import com.example.doordashlite.network.domain.Store
 import com.example.doordashlite.network.domain.StoreFeedResponseResult
 import com.example.doordashlite.repository.DoorDashStoreRepository
@@ -15,6 +15,9 @@ class StoresFeedViewModel(private val repository: DoorDashStoreRepository) : Vie
 
     private val _storeItemClickLiveData = MutableLiveData<OnClickEvent<Int>>()
     val storeItemClickLiveData: LiveData<OnClickEvent<Int>> = _storeItemClickLiveData
+
+    private val _errorLiveData = MutableLiveData<NetworkException>()
+    val errorLiveData: LiveData<NetworkException> = _errorLiveData
 
     fun getStoreFeedResponse(offset: Int, limit: Int) {
         viewModelScope.launch {
@@ -32,14 +35,10 @@ class StoresFeedViewModel(private val repository: DoorDashStoreRepository) : Vie
                                 } ?: run { storesResult.storeFeed?.stores?.toMutableList() }
                             )
                         }
-                        else -> {
-                            Log.d(
-                                StoresFeedViewModel::class.java.canonicalName,
-                                "Data could not be fetched from backend"
-                            )
+                        is StoreFeedResponseResult.Failure -> {
+                            _errorLiveData.postValue(storesResult.exception)
                         }
                     }
-
                 }
         }
     }

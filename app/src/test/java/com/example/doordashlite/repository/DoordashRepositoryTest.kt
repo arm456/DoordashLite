@@ -66,6 +66,39 @@ class DoorDashRepositoryTest {
     }
 
     @Test
+    fun getDoorDashStoreFeedError() = runBlocking {
+        Mockito.`when`(
+            doorDashAPI.getDoorDashStoreFeed(
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyFloat(),
+                ArgumentMatchers.anyInt(),
+                ArgumentMatchers.anyInt()
+            )
+        ).thenReturn(
+            Mockito.mock(Call::class.java) as Call<StoreFeedResponse>
+        )
+
+        val call = doorDashAPI.getDoorDashStoreFeed(0f, 0f, 1, 1)
+        Mockito.`when`(call.execute()).thenReturn(
+            Response.error(
+                404, ResponseBody.create(
+                    MediaType.parse("text/plain"), "No stores found this location"
+                )
+            )
+        )
+
+        val expectedStoreFeedResult: StoreFeedResponseResult =
+            doorDashStoreRepository.getDoorDashStoreFeed(37.3f, 122.4f, 0, 10)
+        assertTrue(expectedStoreFeedResult is StoreFeedResponseResult.Failure)
+
+        val expectedErrorResult = expectedStoreFeedResult as StoreFeedResponseResult.Failure
+        assertEquals(
+            expectedErrorResult.exception.errorMessage,
+            "No stores found this location"
+        )
+    }
+
+    @Test
     fun getRestaurantDetailsSuccess() = runBlocking {
         val store = RestaurantDetailsResponse(
             id = 30,
@@ -74,7 +107,6 @@ class DoorDashRepositoryTest {
             coverImageUrl = null,
             averageRating = 4.5f,
             address = null
-
         )
         Mockito.`when`(
             doorDashAPI.getRestaurantDetails(ArgumentMatchers.anyInt())
@@ -94,4 +126,33 @@ class DoorDashRepositoryTest {
             expectedStoreDetailResult as RestaurantDetailsResponseResult.Success
         assertEquals(expectedSuccessResult.store, store)
     }
+
+    @Test
+    fun getRestaurantDetailsError() = runBlocking {
+        Mockito.`when`(
+            doorDashAPI.getRestaurantDetails(ArgumentMatchers.anyInt())
+        ).thenReturn(
+            Mockito.mock(Call::class.java) as Call<RestaurantDetailsResponse>
+        )
+
+        val call = doorDashAPI.getRestaurantDetails(1)
+        Mockito.`when`(call.execute()).thenReturn(
+            Response.error(
+                404,
+                ResponseBody.create(
+                    MediaType.parse("text/plain"),
+                    "No Restaurant Details Found"
+                )
+            )
+        )
+
+        val expectedStoreDetailResult: RestaurantDetailsResponseResult =
+            doorDashStoreRepository.getRestaurantDetails(0)
+        assertTrue(expectedStoreDetailResult is RestaurantDetailsResponseResult.Failure)
+
+        val expectedErrorResult =
+            expectedStoreDetailResult as RestaurantDetailsResponseResult.Failure
+        assertEquals(expectedErrorResult.exception.errorMessage, "No Restaurant Details Found")
+    }
+
 }

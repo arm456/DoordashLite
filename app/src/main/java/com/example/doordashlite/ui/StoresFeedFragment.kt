@@ -3,6 +3,7 @@ package com.example.doordashlite.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -66,5 +67,10 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
                 }
             }
         )
+
+        storesFeedViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
+            loading.visibility = View.GONE
+            Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()
+        })
     }
 }
