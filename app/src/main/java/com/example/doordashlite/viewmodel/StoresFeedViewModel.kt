@@ -22,10 +22,6 @@ class StoresFeedViewModel(private val repository: DoorDashStoreRepository) : Vie
                 .let { storesResult ->
                     when (storesResult) {
                         is StoreFeedResponseResult.Success -> {
-                            Log.d(
-                                StoresFeedViewModel::class.java.canonicalName,
-                                "Store Data fetched from backend"
-                            )
                             _storesLiveData.postValue(
                                 _storesLiveData.value.apply {
                                     storesResult.storeFeed?.stores?.let {

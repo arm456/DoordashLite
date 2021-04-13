@@ -7,7 +7,7 @@ import com.example.doordashlite.network.domain.RestaurantDetailsResponseResult
 import com.example.doordashlite.repository.DoorDashStoreRepository
 import kotlinx.coroutines.launch
 
-class RestaurantDetailsViewModel (private val repository: DoorDashStoreRepository) : ViewModel() {
+class RestaurantDetailsViewModel(private val repository: DoorDashStoreRepository) : ViewModel() {
 
     private val _restaurantDetailsLiveData = MutableLiveData<RestaurantDetailsResponse>()
     val restaurantDetailsLiveData: LiveData<RestaurantDetailsResponse> = _restaurantDetailsLiveData
@@ -18,11 +18,13 @@ class RestaurantDetailsViewModel (private val repository: DoorDashStoreRepositor
                 repository.getRestaurantDetails(it).let { restaurantDetailsResult ->
                     when (restaurantDetailsResult) {
                         is RestaurantDetailsResponseResult.Success -> {
-                            Log.d(RestaurantDetailsViewModel::class.java.canonicalName, "Detail Data fetched from backend")
                             _restaurantDetailsLiveData.postValue(restaurantDetailsResult.store)
                         }
                         else -> {
-                            Log.d(RestaurantDetailsViewModel::class.java.canonicalName, "Detail Data not fetched from backend")
+                            Log.d(
+                                RestaurantDetailsViewModel::class.java.canonicalName,
+                                "Detail Data not fetched from backend"
+                            )
                         }
                     }
                 }
