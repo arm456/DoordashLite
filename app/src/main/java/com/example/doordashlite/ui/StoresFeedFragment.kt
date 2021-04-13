@@ -1,28 +1,40 @@
 package com.example.doordashlite.ui
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.doordashlite.R
 import com.example.doordashlite.dagger2.DoorDashApplication
+import com.example.doordashlite.databinding.FragmentStoresFeedBinding
 import com.example.doordashlite.repository.DoorDashStoreRepository
 import com.example.doordashlite.viewmodel.StoresFeedViewModel
 import javax.inject.Inject
 
 class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
-
     private lateinit var storesFeedViewModel: StoresFeedViewModel
     private lateinit var storesAdapter: StoresFeedAdapter
 
+    private var _binding: FragmentStoresFeedBinding? = null
+    private val binding get() = _binding!!
+
     @Inject
     lateinit var storeRepository: DoorDashStoreRepository
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentStoresFeedBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,22 +45,20 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
             )
         storesFeedViewModel.getStoreFeedResponse(4, 10)
 
-        val storesRecyclerView = view.findViewById<RecyclerView>(R.id.stores_recycler_view)
         val layoutManager = LinearLayoutManager(requireContext())
-        storesRecyclerView.layoutManager = layoutManager
+        binding.storesRecyclerView.layoutManager = layoutManager
 
         val dividerItemDecoration =
-            DividerItemDecoration(storesRecyclerView.context, layoutManager.orientation)
-        storesRecyclerView.addItemDecoration(dividerItemDecoration)
+            DividerItemDecoration(binding.storesRecyclerView.context, layoutManager.orientation)
+        binding.storesRecyclerView.addItemDecoration(dividerItemDecoration)
 
         storesAdapter = StoresFeedAdapter(storesFeedViewModel)
-        storesRecyclerView.adapter = storesAdapter
+        binding.storesRecyclerView.adapter = storesAdapter
 
-        val loading = view.findViewById<FrameLayout>(R.id.loading_view)
         storesFeedViewModel.storesLiveData.observe(
             viewLifecycleOwner,
             Observer {
-                loading.visibility = View.GONE
+                binding.loadingView.loadingSpinner.visibility = View.GONE
                 storesAdapter.setData(it)
             }
         )
@@ -69,8 +79,13 @@ class StoresFeedFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
         )
 
         storesFeedViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
-            loading.visibility = View.GONE
+            binding.loadingView.loadingSpinner.visibility = View.GONE
             Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_LONG).show()
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

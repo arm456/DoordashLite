@@ -1,7 +1,6 @@
 package com.example.doordashlite.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,9 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.doordashlite.R
+import com.example.doordashlite.databinding.ItemStoresBinding
 import com.example.doordashlite.network.domain.Store
 import com.example.doordashlite.viewmodel.StoresFeedViewModel
-
 
 class StoresFeedAdapter(
     private val storeFeedViewModel: StoresFeedViewModel,
@@ -23,10 +22,10 @@ class StoresFeedAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoresViewHolder =
-        StoresViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_stores, parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoresViewHolder {
+        val binding  = ItemStoresBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return StoresViewHolder(binding)
+    }
 
     override fun getItemCount(): Int = if (storesList.isNullOrEmpty()) 0 else storesList.size
 
@@ -70,10 +69,10 @@ class StoresFeedAdapter(
         })
     }
 
-    class StoresViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val storeImage: ImageView? = view.findViewById(R.id.store_image)
-        val storeName: TextView? = view.findViewById(R.id.store_name)
-        val storeDescription: TextView? = view.findViewById(R.id.store_description)
-        val storeStatus: TextView? = view.findViewById(R.id.store_status)
+    class StoresViewHolder(binding: ItemStoresBinding) : RecyclerView.ViewHolder(binding.root) {
+        val storeImage: ImageView? = binding.storeImage
+        val storeName: TextView? = binding.storeName
+        val storeDescription: TextView? =binding.storeDescription
+        val storeStatus: TextView? = binding.storeStatus
     }
 }

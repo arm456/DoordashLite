@@ -10,11 +10,11 @@
         android:id="@+id/store_image"
         android:layout_width="@dimen/store_feed_image_width"
         android:layout_height="@dimen/image_height"
+        android:contentDescription="@string/store_image"
         android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher"
-        android:contentDescription="@string/store_image" />
+        tools:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/store_name"
